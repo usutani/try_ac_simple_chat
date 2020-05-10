@@ -10,8 +10,8 @@ const roomChannel = consumer.subscriptions.create("RoomChannel", {
   },
 
   received(data) {
-    // alert(data['message'])
-    alert(data)
+    const el = document.getElementById('messages')
+    el.insertAdjacentHTML('beforeend', data)
   },
 
   speak(message) {
