@@ -1,6 +1,7 @@
 import consumer from "./consumer"
 
-consumer.subscriptions.create("RoomChannel", {
+// consumer.subscriptions.create("RoomChannel", {
+window.room = consumer.subscriptions.create("RoomChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
   },
@@ -10,10 +11,10 @@ consumer.subscriptions.create("RoomChannel", {
   },
 
   received(data) {
-    // Called when there's incoming data on the websocket for this channel
+    alert(data['message'])
   },
 
-  speak: function() {
-    return this.perform('speak');
-  }
+  speak(message) {
+    return this.perform('speak', { message: message })
+  },
 });
