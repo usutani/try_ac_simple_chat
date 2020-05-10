@@ -10,7 +10,8 @@ const roomChannel = consumer.subscriptions.create("RoomChannel", {
   },
 
   received(data) {
-    alert(data['message'])
+    // alert(data['message'])
+    alert(data)
   },
 
   speak(message) {
