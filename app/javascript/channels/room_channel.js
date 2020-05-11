@@ -1,7 +1,6 @@
 import consumer from "./consumer"
 
-// consumer.subscriptions.create("RoomChannel", {
-window.room = consumer.subscriptions.create("RoomChannel", {
+const roomChannel = consumer.subscriptions.create("RoomChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
   },
@@ -18,3 +17,16 @@ window.room = consumer.subscriptions.create("RoomChannel", {
     return this.perform('speak', { message: message })
   },
 });
+
+document.addEventListener('turbolinks:load', () => {
+  const els = document.querySelectorAll('[data-behavior~=room_speaker]')
+  els.forEach(el => {
+    el.addEventListener('keypress', event => {
+      if (event.keyCode === 13) {
+        roomChannel.speak(event.target.value)
+        event.target.value = ''
+        event.preventDefault()
+      }
+    })
+  })
+})
